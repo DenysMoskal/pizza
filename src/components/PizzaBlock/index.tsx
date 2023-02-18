@@ -1,30 +1,33 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../redux/slices/cartSlice';
+import { addItem, CartItem } from '../../redux/slices/cartSlice';
+import { RootState } from '../../redux/store';
 
 const typeNames = ['тонкі', 'традиційні'];
 
-type PizaBlockProps = { id: number, title: string , price: number, imageUrl: string, sizes: number[], types: number[] }
+type PizaBlockProps = { id: string, title: string , price: number, imageUrl: string, sizes: number[], types: number[],}
 
 const PizzaBlock: React.FC<PizaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
-  const [activeSize, setActiveSize] = React.useState(0);
-  const [activeType, setActiveType] = React.useState(0);
+  const [activeSize, setActiveSize] = React.useState<number>(0);
+  const [activeType, setActiveType] = React.useState<number>(0);
 
   const dispatch = useDispatch();
-  const cartItem = useSelector((state: any) =>
-    state.cart.items.find((obj: any) => obj.id == id),
+  const cartItem  = useSelector((state: RootState) =>
+    state.cart.items.find((obj : any) => obj.id == id),
   );
 
   const addedCount = cartItem ? cartItem.count : 0;
 
+
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       price,
       imageUrl,
       type: typeNames[activeType],
       size: sizes[activeSize],
+      count: 0,
     };
     dispatch(addItem(item));
   };

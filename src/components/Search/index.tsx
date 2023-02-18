@@ -4,8 +4,13 @@ import debaunce from 'lodash.debounce';
 
 import style from './Search.module.scss';
 
+type ContextType = { 
+  searchValue: string; 
+  setSearchValue: (str: string) => void;
+}
+
 const Search: React.FC = () => {
-  const { setSearchValue } = React.useContext<any>(SearchContext);
+  const { setSearchValue } : ContextType = React.useContext<ContextType>(SearchContext);
   const [value, setValue] = React.useState('');
   const inputRef = React.useRef<HTMLInputElement>(null);
 

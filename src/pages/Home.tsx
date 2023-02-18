@@ -5,21 +5,23 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import { SearchContext } from '../App';
+import { ContextType, SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
 import { setItems } from '../redux/slices/pizzaSlice';
+import { RootState } from '../redux/store';
+
 
 
 const Home: React.FC = () => {
 
-  const { searchValue } = React.useContext<any>(SearchContext);
+  const { searchValue } = React.useContext<ContextType>(SearchContext);
   // const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const categoryId = useSelector((state: any) => state.filter.categoryId);
-  const sort = useSelector((state: any) => state.filter.sort.property);
-  const items = useSelector((state: any) => state.pizza.items);
+  const categoryId = useSelector((state: RootState) => state.filter.categoryId);
+  const sort = useSelector((state: RootState) => state.filter.sort.property);
+  const items = useSelector((state: RootState) => state.pizza.items);
   const dispatch = useDispatch();
 
   const activeIndex = (id: number ) => {
@@ -57,7 +59,7 @@ const Home: React.FC = () => {
         {isLoading
           ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
           : items
-              .filter((value: any) => {
+              .filter((value) => {
                 if (
                   value.title.toLowerCase().includes(searchValue.toLowerCase())
                 )

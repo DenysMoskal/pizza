@@ -1,19 +1,22 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
+import { RootState } from '../redux/store';
 
-function Sort() {
-  const sort = useSelector((state: any) => state.filter.sort);
+export type SortItem = { 
+    name: string; 
+    property: string; 
+  }
+
+const  Sort: React.FC = () => {
+  const sort = useSelector((state: RootState) => state.filter.sort);
   const dispatch = useDispatch();
 
   const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
 
-  type SortItem = { 
-    name: string; 
-    property: string; 
-  }
+  
 
  
 

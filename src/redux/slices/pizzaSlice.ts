@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+type Piza = { id: number, title: string , price: number, imageUrl: string, sizes: number[], types: number[]}
+
+interface PizzaSliceState { 
+  items: Piza[]; 
+}
+
+const initialState: PizzaSliceState = {
   items: [],
 };
 

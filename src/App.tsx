@@ -8,14 +8,21 @@ import Home from './pages/Home';
 
 import './scss/app.scss';
 
-export const SearchContext = React.createContext('');
+export type ContextType = { 
+  searchValue: string; 
+  setSearchValue: (str: string) => void;
+}
+
+export const SearchContext = React.createContext<ContextType>({searchValue: '', setSearchValue: () => {}});
 
 function App() {
   const [searchValue, setSearchValue] = React.useState('');
 
+  const context: ContextType = { searchValue, setSearchValue }
+
   return (
     <div className="wrapper">
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+      <SearchContext.Provider value={context}>
         <Header />
         <div className="content">
           <Routes>
